@@ -1,0 +1,161 @@
+classDiagram
+    class GraphData {
+        +csr_matrix adjacency
+        +List~str~ node_ids
+        +Optional~ndarray~ node_labels
+        +Optional~ndarray~ node_features
+        +bool is_directed
+        +str name
+        +int num_nodes()
+        +int num_edges()
+        +to_networkx() Graph
+        +from_networkx(g) GraphData
+        +validate() None
+    }
+    class Embedding {
+        +ndarray matrix
+        +List~str~ node_ids
+        +str method
+        +str backend
+        +Dict params
+        +int dim()
+        +align(ids) Embedding
+    }
+    class TaskSpec {
+        +TaskType task
+        +float train_ratio
+        +float val_ratio
+        +float test_ratio
+        +int n_splits
+        +int random_state
+        +Tuple scoring
+        +str primary_metric
+    }
+    class Split {
+        +ndarray train_idx
+        +ndarray val_idx
+        +ndarray test_idx
+        +Dict extra
+    }
+    class EvalResult {
+        +TaskType task
+        +str dataset
+        +str method
+        +Dict metrics
+        +str primary_metric
+        +float primary_value
+        +as_row() Dict
+    }
+    class BenchmarkResult {
+        +List~EvalResult~ rows
+        +List skipped
+        +best(metric) EvalResult
+        +to_json(path) None
+        +to_table() str
+    }
+    class SearchSpace {
+        +Tuple~ParamSpec~ params
+        +sample(rng) Dict
+        +grid(n) List
+    }
+    class TrialResult {
+        +Dict best_params
+        +float best_value
+        +int n_trials
+        +str backend
+    }
+
+    class GraphSource {
+        <<Protocol>>
+        +load(kwargs) GraphData
+    }
+    class Embedder {
+        <<Protocol>>
+        +str name
+        +fit(graph) Embedder
+        +transform() Embedding
+        +fit_transform(graph) Embedding
+        +get_params() Dict
+        +set_params(params) Embedder
+        +default_space() SearchSpace
+    }
+    class TaskRunner {
+        <<Protocol>>
+        +TaskType task
+        +run(graph, embedding, spec) EvalResult
+    }
+    class Optimizer {
+        <<Protocol>>
+        +str name
+        +search(objective, space, spec) TrialResult
+    }
+
+    class BaseEmbedder {
+        <<Abstract>>
+        +int dim
+        +int random_state
+        +fit(graph) BaseEmbedder
+        +fit_transform(graph) Embedding
+        +set_params(params) BaseEmbedder
+        -_fit(graph) ndarray
+    }
+    class SpectralEmbedder
+    class DeepWalkEmbedder
+    class Node2VecEmbedder
+    class GraRepEmbedder
+    class SkipGramTrainer {
+        +train(walks, dim, window, neg, lr, epochs, rng) ndarray
+    }
+
+    class BaseTaskRunner {
+        <<Abstract>>
+        +run(graph, embedding, spec) EvalResult
+        -_evaluate(...) Dict
+    }
+    class NodeClassificationRunner
+    class LinkPredictionRunner
+    class EmbeddingBenchmarkRunner
+
+    class GraphPipeline {
+        +str dataset
+        +str method
+        +TaskSpec spec
+        +run() EvalResult
+        +dry_run() Dict
+    }
+    class Benchmark {
+        +run() BenchmarkResult
+    }
+    class OptunaOptimizer {
+        +search(objective, space, spec) TrialResult
+    }
+    class GridSearchOptimizer
+    class RandomSearchOptimizer
+
+    BaseEmbedder ..|> Embedder
+    SpectralEmbedder --|> BaseEmbedder
+    DeepWalkEmbedder --|> BaseEmbedder
+    Node2VecEmbedder --|> BaseEmbedder
+    GraRepEmbedder --|> BaseEmbedder
+    DeepWalkEmbedder --> SkipGramTrainer : uses
+    Node2VecEmbedder --> SkipGramTrainer : uses
+    BaseTaskRunner ..|> TaskRunner
+    NodeClassificationRunner --|> BaseTaskRunner
+    LinkPredictionRunner --|> BaseTaskRunner
+    EmbeddingBenchmarkRunner --|> BaseTaskRunner
+    GraphPipeline --> GraphSource : uses
+    GraphPipeline --> Embedder : uses
+    GraphPipeline --> TaskRunner : uses
+    GraphPipeline --> Optimizer : optional
+    GraphPipeline --> EvalResult : produces
+    Benchmark --> GraphPipeline : uses
+    Benchmark --> BenchmarkResult : produces
+    OptunaOptimizer ..|> Optimizer
+    GridSearchOptimizer ..|> Optimizer
+    RandomSearchOptimizer ..|> Optimizer
+    TaskRunner --> GraphData : consumes
+    Embedder --> Embedding : produces
+    TaskRunner --> Embedding : consumes
+    TaskRunner --> TaskSpec : consumes
+    BenchmarkResult o-- EvalResult
+    SearchSpace o-- ParamSpec

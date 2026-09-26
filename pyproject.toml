@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "graphforge"
+version = "0.1.0"
+description = "GraphForge: 图嵌入与图机器学习评测基准（Node Classification / Link Prediction / Embedding Benchmark）"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "晨星" }]
+keywords = ["graph", "embedding", "node2vec", "deepwalk", "benchmark", "link-prediction"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "scikit-learn>=1.4",
+    "networkx>=3.1",
+    "pandas>=2.0",
+    "joblib>=1.3",
+]
+
+[project.optional-dependencies]
+hpo = ["optuna>=3.4"]
+external = ["karateclub>=1.3", "node2vec>=0.4"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+graphforge = "graphforge.cli:main"
+
+[tool.setuptools]
+packages = ["graphforge"]
+
+[tool.setuptools.package-data]
+graphforge = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q -W ignore::UserWarning"
+filterwarnings = [
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]

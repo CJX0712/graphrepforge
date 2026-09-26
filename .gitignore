@@ -1,0 +1,37 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+build/
+dist/
+.eggs/
+*.egg
+
+# ---------- 虚拟环境 ----------
+venv/
+.venv/
+env/
+ENV/
+
+# ---------- 测试 / 覆盖率 ----------
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+
+# ---------- 产物 ----------
+artifacts/*
+!artifacts/benchmark.json
+!artifacts/report.md
+outputs/
+*.log
+
+# ---------- 编辑器 / 系统 ----------
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

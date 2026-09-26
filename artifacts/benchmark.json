@@ -1,0 +1,602 @@
+{
+  "name": "graphforge-demo",
+  "created_at": "2026-09-26T19:49:31+00:00",
+  "config": {
+    "datasets": [
+      "sbm_demo",
+      "karate"
+    ],
+    "methods": [
+      "spectral",
+      "deepwalk",
+      "node2vec",
+      "grarep"
+    ],
+    "tasks": [
+      "node_classification",
+      "link_prediction"
+    ],
+    "dim": 32,
+    "feature_method": "degree",
+    "hpo": null
+  },
+  "rows": [
+    {
+      "task": "node_classification",
+      "dataset": "sbm_demo",
+      "method": "spectral",
+      "backend": "internal",
+      "metrics": {
+        "accuracy": 0.96875,
+        "macro_f1": 0.9686274509803922
+      },
+      "primary_metric": "macro_f1",
+      "primary_value": 0.9686274509803922,
+      "n_samples": 32,
+      "elapsed_sec": 0.4137,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "normalize": "symmetric",
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "normalize": "symmetric"
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "node_classification",
+      "dataset": "sbm_demo",
+      "method": "deepwalk",
+      "backend": "internal",
+      "metrics": {
+        "accuracy": 1.0,
+        "macro_f1": 1.0
+      },
+      "primary_metric": "macro_f1",
+      "primary_value": 1.0,
+      "n_samples": 32,
+      "elapsed_sec": 10.6219,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "node_classification",
+      "dataset": "sbm_demo",
+      "method": "node2vec",
+      "backend": "internal",
+      "metrics": {
+        "accuracy": 1.0,
+        "macro_f1": 1.0
+      },
+      "primary_metric": "macro_f1",
+      "primary_value": 1.0,
+      "n_samples": 32,
+      "elapsed_sec": 10.6185,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "p": 1.0,
+          "q": 1.0,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "p": 1.0,
+          "q": 1.0,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "node_classification",
+      "dataset": "sbm_demo",
+      "method": "grarep",
+      "backend": "internal",
+      "metrics": {
+        "accuracy": 0.96875,
+        "macro_f1": 0.9686274509803923
+      },
+      "primary_metric": "macro_f1",
+      "primary_value": 0.9686274509803923,
+      "n_samples": 32,
+      "elapsed_sec": 0.0462,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "k_steps": 4,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "k_steps": 4
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "link_prediction",
+      "dataset": "sbm_demo",
+      "method": "spectral",
+      "backend": "internal",
+      "metrics": {
+        "roc_auc": 0.9959825528007347,
+        "average_precision": 0.995835143610685
+      },
+      "primary_metric": "roc_auc",
+      "primary_value": 0.9959825528007347,
+      "n_samples": 264,
+      "elapsed_sec": 0.0229,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "normalize": "symmetric",
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "normalize": "symmetric"
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "link_prediction",
+      "dataset": "sbm_demo",
+      "method": "deepwalk",
+      "backend": "internal",
+      "metrics": {
+        "roc_auc": 0.9436409550045912,
+        "average_precision": 0.9344317211052342
+      },
+      "primary_metric": "roc_auc",
+      "primary_value": 0.9436409550045912,
+      "n_samples": 264,
+      "elapsed_sec": 10.9806,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "link_prediction",
+      "dataset": "sbm_demo",
+      "method": "node2vec",
+      "backend": "internal",
+      "metrics": {
+        "roc_auc": 0.9436409550045912,
+        "average_precision": 0.9344317211052342
+      },
+      "primary_metric": "roc_auc",
+      "primary_value": 0.9436409550045912,
+      "n_samples": 264,
+      "elapsed_sec": 10.9055,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "p": 1.0,
+          "q": 1.0,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "p": 1.0,
+          "q": 1.0,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "link_prediction",
+      "dataset": "sbm_demo",
+      "method": "grarep",
+      "backend": "internal",
+      "metrics": {
+        "roc_auc": 0.9609159779614326,
+        "average_precision": 0.9535925006026924
+      },
+      "primary_metric": "roc_auc",
+      "primary_value": 0.9609159779614326,
+      "n_samples": 264,
+      "elapsed_sec": 0.0762,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "k_steps": 4,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "k_steps": 4
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "node_classification",
+      "dataset": "karate",
+      "method": "spectral",
+      "backend": "internal",
+      "metrics": {
+        "accuracy": 0.6666666666666666,
+        "macro_f1": 0.625
+      },
+      "primary_metric": "macro_f1",
+      "primary_value": 0.625,
+      "n_samples": 6,
+      "elapsed_sec": 0.007,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "normalize": "symmetric",
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "normalize": "symmetric"
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "node_classification",
+      "dataset": "karate",
+      "method": "deepwalk",
+      "backend": "internal",
+      "metrics": {
+        "accuracy": 1.0,
+        "macro_f1": 1.0
+      },
+      "primary_metric": "macro_f1",
+      "primary_value": 1.0,
+      "n_samples": 6,
+      "elapsed_sec": 2.3153,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "node_classification",
+      "dataset": "karate",
+      "method": "node2vec",
+      "backend": "internal",
+      "metrics": {
+        "accuracy": 1.0,
+        "macro_f1": 1.0
+      },
+      "primary_metric": "macro_f1",
+      "primary_value": 1.0,
+      "n_samples": 6,
+      "elapsed_sec": 2.1561,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "p": 1.0,
+          "q": 1.0,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "p": 1.0,
+          "q": 1.0,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "node_classification",
+      "dataset": "karate",
+      "method": "grarep",
+      "backend": "internal",
+      "metrics": {
+        "accuracy": 1.0,
+        "macro_f1": 1.0
+      },
+      "primary_metric": "macro_f1",
+      "primary_value": 1.0,
+      "n_samples": 6,
+      "elapsed_sec": 0.0207,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "k_steps": 4,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "k_steps": 4
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "link_prediction",
+      "dataset": "karate",
+      "method": "spectral",
+      "backend": "internal",
+      "metrics": {
+        "roc_auc": 0.9911111111111112,
+        "average_precision": 0.9921568627450981
+      },
+      "primary_metric": "roc_auc",
+      "primary_value": 0.9911111111111112,
+      "n_samples": 30,
+      "elapsed_sec": 0.0103,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "normalize": "symmetric",
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "normalize": "symmetric"
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "link_prediction",
+      "dataset": "karate",
+      "method": "deepwalk",
+      "backend": "internal",
+      "metrics": {
+        "roc_auc": 0.8133333333333334,
+        "average_precision": 0.7378709090473796
+      },
+      "primary_metric": "roc_auc",
+      "primary_value": 0.8133333333333334,
+      "n_samples": 30,
+      "elapsed_sec": 2.1813,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "link_prediction",
+      "dataset": "karate",
+      "method": "node2vec",
+      "backend": "internal",
+      "metrics": {
+        "roc_auc": 0.8133333333333334,
+        "average_precision": 0.7378709090473796
+      },
+      "primary_metric": "roc_auc",
+      "primary_value": 0.8133333333333334,
+      "n_samples": 30,
+      "elapsed_sec": 2.0537,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "p": 1.0,
+          "q": 1.0,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "walk_length": 80,
+          "num_walks": 10,
+          "window": 10,
+          "p": 1.0,
+          "q": 1.0,
+          "epochs": 1,
+          "learning_rate": 0.025,
+          "negative": 5
+        },
+        "hpo": {}
+      }
+    },
+    {
+      "task": "link_prediction",
+      "dataset": "karate",
+      "method": "grarep",
+      "backend": "internal",
+      "metrics": {
+        "roc_auc": 1.0,
+        "average_precision": 1.0
+      },
+      "primary_metric": "roc_auc",
+      "primary_value": 1.0,
+      "n_samples": 30,
+      "elapsed_sec": 0.0405,
+      "params": {
+        "estimator": "logistic_regression",
+        "estimator_params": {},
+        "edge_op": "hadamard",
+        "random_state": 42,
+        "use_cv": false,
+        "embedding_params": {
+          "k_steps": 4,
+          "dim": 32,
+          "random_state": 42
+        },
+        "embedder_params": {
+          "k_steps": 4
+        },
+        "hpo": {}
+      }
+    }
+  ],
+  "skipped": []
+}

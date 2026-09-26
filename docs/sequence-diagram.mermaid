@@ -1,0 +1,79 @@
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant CLI as cli.py
+    participant CFG as core/config
+    participant PL as pipeline/Benchmark
+    participant DS as data/registry
+    participant PP as preprocess
+    participant HP as hpo/runner
+    participant OP as hpo/optimizer
+    participant EM as graph/embeddings
+    participant BK as embeddings/backends
+    participant TR as training/trainer
+    participant TK as graph/tasks
+    participant EV as eval/metrics
+    participant RP as eval/report
+
+    U->>CLI: graphforge benchmark --datasets sbm,karate --methods spectral,node2vec
+    CLI->>CFG: get_config() (读 GRAPHFORGE_* 覆盖)
+    CFG-->>CLI: GraphForgeConfig
+    CLI->>PL: Benchmark(datasets, methods, tasks).run()
+
+    loop 每个 dataset
+        PL->>DS: get_dataset(name, random_state=seed)
+        DS->>DS: generate_sbm() / karate / load_edgelist
+        DS-->>PL: GraphData
+        PL->>PP: build_adjacency(g) + validate
+        PP-->>PL: GraphData(normalized)
+
+        loop 每个 method
+            PL->>BK: available_backends()
+            BK-->>PL: {"karateclub": false, "internal": true}
+            alt karateclub 可用
+                PL->>EM: build_karateclub_embedder(name)
+            else 不可用
+                PL->>PL: 记 skipped[{method, reason}]
+                PL->>EM: get_embedder(name) -> 内置经典实现
+            end
+
+            opt 开启 HPO
+                PL->>HP: run_hpo(factory, graph, task, spec)
+                HP->>OP: get_optimizer(backend).search(objective, space, hpo_spec)
+                loop n_trials
+                    OP->>EM: set_params(**trial) / fit_transform(graph)
+                    EM-->>OP: Embedding
+                    OP->>TK: runner.run(graph, emb, spec)
+                    TK->>TR: train_node_classifier / train_link_predictor
+                    TR->>EV: compute(y_true, y_out, scoring)
+                    EV-->>TR: {metric: value}
+                    TR-->>TK: metrics
+                    TK-->>OP: EvalResult.primary_value
+                end
+                OP-->>HP: TrialResult
+                HP-->>PL: best_params
+                PL->>EM: set_params(**best_params)
+            end
+
+            PL->>EM: fit_transform(graph)
+            EM->>EM: walks -> SkipGramTrainer / svds / PPMI+SVD
+            EM-->>PL: Embedding(n, dim)
+
+            loop 每个 task
+                PL->>TK: runner.run(graph, emb, spec)
+                TK->>PP: splitter.split(graph, spec)
+                PP-->>TK: Split
+                TK->>TR: fit/predict
+                TR->>EV: METRIC_REGISTRY[name](y_true, y_out)
+                EV-->>TR: float
+                TR-->>TK: metrics dict
+                TK-->>PL: EvalResult(primary_metric, primary_value)
+            end
+        end
+    end
+
+    PL->>RP: BenchmarkResult.to_table()
+    RP-->>PL: 固定宽度表格 f"{h:<12}"
+    PL-->>CLI: BenchmarkResult
+    CLI->>RP: to_json(artifacts/benchmark.json)
+    CLI-->>U: 打印表格 + 退出码 0

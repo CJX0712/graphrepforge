@@ -1,0 +1,2 @@
+# GraphForge 开发依赖（单测 / 构建）
+pytest>=8.0
