@@ -47,7 +47,7 @@ def build_parser() -> argparse.ArgumentParser:
     common.add_argument("--log-level", default="INFO", help="日志级别（DEBUG/INFO/WARNING）")
     parser = argparse.ArgumentParser(
         prog="graphforge",
-        description="GraphForge —— 图嵌入与图机器学习评测基准（作者：晨星）",
+        description="GraphRepForge —— 图表示学习评测基准（作者：晨星）",
         parents=[common],
     )
     sub = parser.add_subparsers(dest="command", required=True)
@@ -93,7 +93,7 @@ def _cmd_doctor(_args: argparse.Namespace) -> int:
     from graphforge.hpo.backends import backend_report as hpo_report
 
     config = get_config()
-    print(f"GraphForge v{graphforge.__version__}（作者：{graphforge.__author__}）")
+    print(f"GraphRepForge v{graphforge.__version__}（作者：{graphforge.__author__}）")
     print(_row(("", "backend", "status", "detail")))
     print(_row(("", "-" * 11, "-" * 11, "")))
     for item in backend_report() + hpo_report():

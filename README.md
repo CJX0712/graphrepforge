@@ -1,11 +1,11 @@
-# GraphForge
+# GraphRepForge
 
 > 图机器学习评测基准：Node Classification / Link Prediction / Embedding Benchmark 三任务统一接口，跨模型公平比较。
 > 作者：**晨星** · 版本：v0.1.0
 
 ## 1. 这是什么
 
-GraphForge 把"造图 → 预处理 → 图嵌入 → 下游任务 → 评测"串成一条可复现管线，用**统一指标方向（全部"越大越好"）**让不同方法可以直接排序比较。
+GraphRepForge 把"造图 → 预处理 → 图嵌入 → 下游任务 → 评测"串成一条可复现管线，用**统一指标方向（全部"越大越好"）**让不同方法可以直接排序比较。
 
 - **三个任务**：`node_classification`（primary = `macro_f1`）、`link_prediction`（primary = `roc_auc`）、`embedding_benchmark`（复用下游指标）
 - **四个内置嵌入方法**：`spectral` / `deepwalk` / `node2vec` / `grarep`
